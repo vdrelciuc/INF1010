@@ -10,8 +10,8 @@ They covers concepts such as:
 - Templates and Exceptions
 - GUI using Qt
 
-## Collaborators
-- Justin ([@TheCadorin](https://github.com/TheCadorin/))
+## Other Collaborators
+- Justin van den Hanenberg ([@TheCadorin](https://github.com/TheCadorin/))
 
 ## Disclaimer
 This code is for syntax & structure reference purposes only. Directly copying snippets of code from others, without proper citation and without advance permission of your instructor, will likely be considered an academic integrity violation by your school.
