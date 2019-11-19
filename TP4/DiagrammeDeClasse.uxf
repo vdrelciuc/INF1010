@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>3</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>282</y>
+      <w>165</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>*LectureFichierEnSections*
+
+--
+-debutFichier: streampos
+-separateurDeSections: char
+--
++LectureFichierEnSections(const string &amp;nomFichier, char separateurDeSection = '-')
++allerASection(string_view titreSection): LectureFichierEnSections&amp;
++estFinFichier(): bool
++estFinSection(): bool
++lireLigne(): string
++lecteurDeLigne(): istringstream
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>321</x>
+      <y>729</y>
+      <w>156</w>
+      <h>87</h>
+    </coordinates>
+    <panel_attributes>*Client*
+
+--
+-nom_: string
+-prenom_: string
+-tailleGroupe_: int
+-tableOccupee_: Table*
+--
++Client()
++Client(string_view nom,string_view prenom, int tailleGroupe)
++~Client()
++getNom(): string
++getPrenom(): string
++getTailleGroupe: int
++getTable(): Table*
++setTable(Table* ta): void
++getNbPoints(): int
++afficherClient(ostream &amp;os): void
++getReduction(const Restaurant &amp;res, double montant, bool estLivraison): double </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>417</x>
+      <y>837</y>
+      <w>156</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>*ClientOccasionnel*
+
+--
+
+--
++~ClientOccasionnel()
++getNbPoints(): int
++afficherClient(ostream &amp;os): void
++getReduction(const Restaurant &amp;res, double montant, bool estLivraison): double </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>204</x>
+      <y>906</y>
+      <w>207</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>*ClientPrestige*
+
+--
+-adresse_: ZoneHabitation
+--
++ClientPrestige()
++ClientPrestige(string_view nom, string_view prenom, int tailleGroupe, int nbPoints, ZoneHabitation adresse)
++~ClientPrestige()
++getAdresseCode(): ZoneHabitation
++afficherClient(ostream &amp;os): void
++getAdresseCodeString(): string
++getReduction(const Restaurant &amp;res, double montant, bool estLivraison): double </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>204</x>
+      <y>837</y>
+      <w>207</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>*ClientRegulier*
+
+--
+-nbPoints_: int
+--
++ClientRegulier()
++ClientRegulier(string_view nom, string_view prenom, int tailleGroupe, int nbPoints, ZoneHabitation adresse)
++~ClientRegulier()
++getNbPoints(): int
++augmenterNbPoints(): void
++afficherClient(ostream &amp;os): void
++getReduction(const Restaurant &amp;res, double montant, bool estLivraison): double </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>234</x>
+      <y>615</y>
+      <w>111</w>
+      <h>87</h>
+    </coordinates>
+    <panel_attributes>*Menu*
+
+--
+-listePlats: vector&lt;owner&lt;Plat*&gt;&gt;
+-listePlatsVege_: vector&lt;owner&lt;Vege*&gt;&gt;
+-type_: TypeMenu
+--
++Menu()
++Menu(string fichier, TypeMenu type)
++Menu(const Menu &amp;menu)
++~Menu()
++getListePlats(): vector&lt;Plat*&gt;
++trouverPlat(string_view nom): Plat*
++allouerPlat(Plat* plat): Plat*
++operator+=(owner&lt;Plat*&gt; plat): Menu&amp;
++operator=(const Menu &amp;menu): Menu&amp;
++lireMenu(const string &amp;fichier): void
++trouverPlatMoinsCher(): Plat*
++operator&lt;&lt;(ostream &amp;os, const Menu &amp;menu): ostream&amp;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>465</x>
+      <y>495</y>
+      <w>156</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>*PlatBioVege*
+
+--
+-ecoTaxe_: double
+--
++PlatBioVege(string nom = "inconnu", double prix=0,double cout=0,
+double ecotaxe = 0, double vitamines=0, double proteines=0, double mineraux=0)
++~PlatBioVege()
++clone(): Plat*
++afficherPlat(ostream &amp;os): void
++calculerApportNutritif(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3</x>
+      <y>435</y>
+      <w>147</w>
+      <h>183</h>
+    </coordinates>
+    <panel_attributes>*Restaurant*
+
+--
+-nom_: string
+-momentJournee_: TypeMenu
+-chiffreAffaire: double
+-menuMatin: owner&lt;Menu*&gt;
+-menuMidi: owner&lt;Menu*&gt;
+-menuSoir: owner&lt;Menu*&gt;
+-tables_: vector&lt;owner&lt;Table*&gt;&gt;\
++NB_ZONES_LIVR = 3: int
+-fraisLivraison_[NB_ZONES_LIVR]: double
+--
++Restaurant()
++Restaurant(const string &amp;nomFichier, string_view nom, TypeMenu moment)
++Restaurant(const Restaurant &amp;autre)
++~Restaurant()
++setMoment(TypeMenu moment): void
++setNom(string_view nom): void
++setChiffreAffaire(double chiffre): void
++getNom(): string
++getMoment(): TypeMenu
++getFraisLivraison(int index): double
++getChiffreAffaire(): double
++lireTables(const string &amp;fichier): void
++lireAdresses(const string &amp;fichier): void
++operator+=(owner&lt;Table *&gt; table): Restaurant&amp;
++libererTable(int id): void
++commanderPlat(string_view nom, int idTable): void
++operator&lt;(const Restaurant &amp;restau): bool
++operator=(const Restaurant &amp;autre): Restaurant&amp;
++placerClients(Client *client): bool
++livrerClient(Client *client, const vector&lt;string&gt; &amp;nomPlats): bool
++calculerReduction(Client *client, double montant, bool livraison): double
++getFraisLivraison(ZoneHabitation zone): double
++getMenu(TypeMenu typeMenu): Menu*
++operator&lt;&lt;(ostream &amp;os, const Restaurant &amp;restaurent): ostream&amp;
+-menuActuel(): Menu*
+-getTable(int id): Table*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>405</x>
+      <y>408</y>
+      <w>123</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>*PlatVege*
+
+--
+-taxe_: double
+--
++PlatVege(string nom = "inconnu", double prix=0,double cout=0, 
+double vitamines=0, double proteines=0, double mineraux=0)
++~PlatVege()
++getTaxe(): double
++setTaxe(double taxe): void
++calculerApportNutritif(): double
++clone(): Plat*
++afficherPlat(ostream &amp;os): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>219</x>
+      <y>408</y>
+      <w>156</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>*PlatBio*
+
+--
+-ecoTaxe_: double
+--
++PlatBio(string nom = "inconnu", double prix=0,double cout=0,double ecotaxe = 0)
++~Plat()
++getEcoTaxe(): double
++setEcoTaxe(double ecoTaxe): void
++getPrixRevient(): double
++clone(): Plat*
++afficherPlat(ostream &amp;os): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>327</x>
+      <y>294</y>
+      <w>126</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>*Plat*
+
+--
+-nom_: string
+-prix_: double
+-cout_: double
+--
++Plat(string_view nom = "inconnu", double prix=0,double cout=0)
++~Plat()
++getNom(): string
++setNom(string nom): void
++getPrix(): double
++setPrix(double prix): void
++getCout(): double
++getPrixRevient(): double
++clone(): Plat*
++operator&lt;(const Plat &amp;plat): bool
++afficherPlat(ostream &amp;os): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>27</x>
+      <y>675</y>
+      <w>108</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>*Table*
+
+--
+-commande_: vector&lt;Plat*&gt;
+-id_: int
+-nbPlaces_: int
+-nbClientsATable_: int
+-clientPrincipal_: Client*
+--
++Table(int id = -1, int nbPlaces = 1)
++getId(): int
++getNbPlaces(): int
++estOccupee(): bool
++estPleine(): bool
++getNbClientsATable(): int
++getCommande(): vector&lt;Plat*&gt;
++getClientPrincipal(): Client*
++getChiffreAffaire(): double
++libererTable(): void
++ placerClients(int nbClients): void
++setId(int id): void
++setClientPrincipal(Client *clientPrincipal): void
++commander(): void
++operator&lt;&lt;(ostream &amp;os, const Table &amp;table): ostream&amp;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>447</y>
+      <w>78</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>*Taxable*
+
+--
+
+--
++~Taxable()
++setTaxe(): void
++getTaxe(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>471</x>
+      <y>294</y>
+      <w>138</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>*Vege*
+
+--
+-vitamines_: double
+-proteines_: double
+-mineraux_: double
+-nom_: string
+--
++Vege(string nom, double vitamines, double proteines, double mineraux)
++~Vege()
++getVitamines(): double
++getProteines(): double
++getMineraux(): double
++setVitamines(double vitamines): void
++setProteines(double proteines): void
++setMineraux(double mineraux): void
++afficherVege(ostream &amp;os): void
++calculerApportNutritif(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>369</y>
+      <w>78</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>*Boisson*
+
+--
+-nom_: string
+-prix_: double
+-taxe_: double
+--
++Boisson(string_view nom, double prix)
++~Boisson()
++getNom(): string_view
++getPrix(): double
++setTaxe(): void
++getTaxe(): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>393</x>
+      <y>813</y>
+      <w>105</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;330.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>303</x>
+      <y>813</y>
+      <w>99</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>891</y>
+      <w>9</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>696</x>
+      <y>426</y>
+      <w>9</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>294</x>
+      <y>375</y>
+      <w>105</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>330.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>375</y>
+      <w>81</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>375</y>
+      <w>90</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>291</x>
+      <y>459</y>
+      <w>258</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;840.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>375</y>
+      <w>12</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;400.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>459</y>
+      <w>18</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2= 0..*</panel_attributes>
+    <additional_attributes>10.0;520.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>375</y>
+      <w>117</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2= 0..*</panel_attributes>
+    <additional_attributes>10.0;800.0;350.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>465</y>
+      <w>183</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2= 0..*</panel_attributes>
+    <additional_attributes>10.0;500.0;590.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>543</y>
+      <w>261</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2= 0..*</panel_attributes>
+    <additional_attributes>10.0;240.0;850.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>312</y>
+      <w>171</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>10.0;10.0;550.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>312</y>
+      <w>78</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>10.0;10.0;240.0;1180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>132</x>
+      <y>726</y>
+      <w>195</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1= 1..1
+m2= 0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;630.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>606</x>
+      <y>333</y>
+      <w>60</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180.0;440.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>75</x>
+      <y>333</y>
+      <w>18</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>540</y>
+      <w>96</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=3..3
+</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;420.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>72</x>
+      <y>615</y>
+      <w>15</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+</diagram>
